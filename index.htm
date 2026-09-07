@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Safety Walk Checklist</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    header {
+      background: #0756a8;
+      color: white;
+      padding: 22px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .brand h1 {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .brand p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .logo-area {
+      display: flex;
+      gap: 10px;
+    }
+
+    .logo-box {
+      width: 55px;
+      height: 55px;
+      background: white;
+      color: #0756a8;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    nav {
+      background: white;
+      padding: 12px 7%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      border: none;
+      background: transparent;
+      padding: 10px 16px;
+      cursor: pointer;
+      color: #0756a8;
+      font-weight: bold;
+      border-radius: 8px;
+    }
+
+    nav button:hover {
+      background: #eaf3ff;
+    }
+
+    .container {
+      width: 86%;
+      max-width: 1100px;
+      margin: 30px auto;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .hero {
+      background: white;
+      border-radius: 18px;
+      padding: 45px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border-top: 6px solid #f4c400;
+    }
+
+    .hero h2 {
+      color: #0756a8;
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #64748b;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      border: none;
+      padding: 13px 24px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #0756a8;
+      color: white;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    .btn-yellow {
+      background: #f4c400;
+      color: #1f2937;
+    }
+
+    .card {
+      background: white;
+      padding: 28px;
+      border-radius: 15px;
+      margin-bottom: 22px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+    }
+
+    .card h2 {
+      color: #0756a8;
+      margin-bottom: 20px;
+      font-size: 21px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #0756a8;
+    }
+
+    .check-item {
+      padding: 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      margin-bottom: 12px;
+    }
+
+    .check-item span {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .radio-group label {
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 0;
+    }
+
+    .radio-group input {
+      width: auto;
+    }
+
+    .finding-box {
+      display: none;
+    }
+
+    .finding-box.show {
+      display: block;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .success {
+      display: none;
+      background: #dcfce7;
+      color: #166534;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+      border-left: 5px solid #0756a8;
+    }
+
+    .stat h3 {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .stat strong {
+      color: #0756a8;
+      font-size: 30px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 700px;
+    }
+
+    th, td {
+      padding: 13px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    th {
+      background: #0756a8;
+      color: white;
+    }
+
+    .badge {
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .low {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .medium {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .high {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      margin-top: 40px;
+      background: #0756a8;
+      color: white;
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .grid,
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 30px 20px;
+      }
+
+      .hero h2 {
+        font-size: 25px;
+      }
+
+      .container {
+        width: 92%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <h1>Digital Safety Walk Checklist</h1>
+    <p>PT Pemalang Batang Toll Road</p>
+  </div>
+
+  <div class="logo-area">
+    <div class="logo-box">PBTR</div>
+    <div class="logo-box">UNIKAL</div>
+  </div>
+</header>
+
+<nav>
+  <button onclick="showPage('home')">Beranda</button>
+  <button onclick="showPage('form')">Safety Walk</button>
+  <button onclick="showPage('rekap')">Rekap & Monitoring</button>
+</nav>
+
+<div class="container">
+
+  <!-- BERANDA -->
+  <section id="home" class="page active">
+    <div class="hero">
+      <h2>Digital Safety Walk Checklist</h2>
+
+      <p>
+        Sistem pencatatan dan monitoring kegiatan Safety Walk
+        serta temuan K3 di lingkungan kerja PT Pemalang Batang Toll Road.
+      </p>
+
+      <button class="btn btn-yellow" onclick="showPage('form')">
+        Mulai Safety Walk
+      </button>
+    </div>
+  </section>
+
+
+  <!-- FORM SAFETY WALK -->
+  <section id="form" class="page">
+
+    <div class="card">
+      <h2>1. Data Kegiatan Safety Walk</h2>
+
+      <div class="grid">
+
+        <div>
+          <label>Tanggal Safety Walk</label>
+          <input type="date" id="tanggal">
+        </div>
+
+        <div>
+          <label>Waktu</label>
+          <input type="time" id="waktu">
+        </div>
+
+        <div>
+          <label>Lokasi</label>
+          <input type="text" id="lokasi" placeholder="Contoh: Area Kantor">
+        </div>
+
+        <div>
+          <label>Nama Observer</label>
+          <input type="text" id="observer" placeholder="Nama observer">
+        </div>
+
+        <div>
+          <label>Area yang Diobservasi</label>
+          <input type="text" id="area" placeholder="Contoh: Area Operasional">
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="card">
+      <h2>2. Checklist K3</h2>
+
+      <div class="check-item">
+        <span>Penggunaan APD</span>
+        <div class="radio-group">
+          <label><input type="radio" name="apd" value="Sesuai"> Sesuai</label>
+          <label><input type="radio" name="apd" value="Tidak Sesuai"> Tidak Sesuai</label>
+          <label><input type="radio" name="apd" value="N/A"> Tidak Berlaku</label>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <span>Kondisi Area Kerja</span>
+        <div class="radio-group">
+          <label><input type="radio" name="areaKerja" value="Sesuai"> Sesuai</label>
+          <label><input type="radio" name="areaKerja" value="Tidak Sesuai"> Tidak Sesuai</label>
+          <label><input type="radio" name="areaKerja" value="N/A"> Tidak Berlaku</label>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <span>Rambu dan Tanda Keselamatan</span>
+        <div class="radio-group">
+          <label><input type="radio" name="rambu" value="Sesuai"> Sesuai</label>
+          <label><input type="radio" name="rambu" value="Tidak Sesuai"> Tidak Sesuai</label>
+          <label><input type="radio" name="rambu" value="N/A"> Tidak Berlaku</label>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <span>Pembatas / Barrier Area Kerja</span>
+        <div class="radio-group">
+          <label><input type="radio" name="barrier" value="Sesuai"> Sesuai</label>
+          <label><input type="radio" name="barrier" value="Tidak Sesuai"> Tidak Sesuai</label>
+          <label><input type="radio" name="barrier" value="N/A"> Tidak Berlaku</label>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <span>Kebersihan dan Kerapian Area</span>
+        <div class="radio-group">
+          <label><input type="radio" name="kebersihan" value="Sesuai"> Sesuai</label>
+          <label><input type="radio" name="kebersihan" value="Tidak Sesuai"> Tidak Sesuai</label>
+          <label><input type="radio" name="kebersihan" value="N/A"> Tidak Berlaku</label>
+        </div>
+      </div>
+
+      <div class="check-item">
+        <span>Apakah ditemukan potensi bahaya?</span>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="bahaya" value="Ya" onclick="toggleFinding(true)">
+            Ya
+          </label>
+
+          <label>
+            <input type="radio" name="bahaya" value="Tidak" onclick="toggleFinding(false)">
+            Tidak
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- DETAIL TEMUAN -->
+    <div id="findingBox" class="card finding-box">
+
+      <h2>3. Detail Temuan Potensi Bahaya</h2>
+
+      <div class="grid">
+
+        <div>
+          <label>Jenis Temuan</label>
+          <select id="jenisTemuan">
+            <option value="">Pilih jenis temuan</option>
+            <option>Unsafe Condition</option>
+            <option>Unsafe Act</option>
+            <option>Good Practice</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Kategori Bahaya</label>
+          <select id="kategori">
+            <option value="">Pilih kategori</option>
+            <option>Fisik</option>
+            <option>Mekanik</option>
+            <option>Listrik</option>
+            <option>Ergonomi</option>
+            <option>Lingkungan</option>
+            <option>APD</option>
+            <option>Kebakaran</option>
+            <option>Lainnya</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Tingkat Risiko</label>
+          <select id="risiko">
+            <option value="">Pilih tingkat risiko</option>
+            <option value="Rendah">Rendah</option>
+            <option value="Sedang">Sedang</option>
+            <option value="Tinggi">Tinggi</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Foto Temuan</label>
+          <input type="file" id="foto" accept="image/*">
+        </div>
+
+      </div>
+
+      <br>
+
+      <label>Deskripsi Temuan</label>
+      <textarea id="deskripsi" placeholder="Jelaskan kondisi atau potensi bahaya yang ditemukan..."></textarea>
+
+    </div>
+
+
+    <div class="actions">
+      <button class="btn" onclick="simpanData()">Simpan Safety Walk</button>
+    </div>
+
+    <div id="success" class="success">
+      Data Safety Walk berhasil disimpan. Silakan lihat pada menu Rekap & Monitoring.
+    </div>
+
+  </section>
+
+
+  <!-- REKAP -->
+  <section id="rekap" class="page">
+
+    <div class="dashboard">
+
+      <div class="stat">
+        <h3>Total Safety Walk</h3>
+        <strong id="totalWalk">0</strong>
+      </div>
+
+      <div class="stat">
+        <h3>Total Temuan</h3>
+        <strong id="totalTemuan">0</strong>
+      </div>
+
+      <div class="stat">
+        <h3>Risiko Tinggi</h3>
+        <strong id="totalTinggi">0</strong>
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h2>Rekap & Monitoring Temuan</h2>
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Lokasi</th>
+              <th>Observer</th>
+              <th>Jenis Temuan</th>
+              <th>Kategori</th>
+              <th>Risiko</th>
+              <th>Deskripsi</th>
+            </tr>
+          </thead>
+
+          <tbody id="tabelData"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<footer>
+  UTAMAKAN KESELAMATAN • BEKERJA DENGAN AMAN • PULANG DENGAN SELAMAT
+</footer>
+
+
+<script>
+
+  let dataSafetyWalk = JSON.parse(
+    localStorage.getItem("dataSafetyWalk")
+  ) || [];
+
+
+  function showPage(page) {
+
+    document.querySelectorAll(".page").forEach(function(section) {
+      section.classList.remove("active");
+    });
+
+    document.getElementById(page).classList.add("active");
+
+    if (page === "rekap") {
+      tampilkanRekap();
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+
+  function toggleFinding(show) {
+
+    const box = document.getElementById("findingBox");
+
+    if (show) {
+      box.classList.add("show");
+    } else {
+      box.classList.remove("show");
+    }
+
+  }
+
+
+  function getRadio(name) {
+
+    const selected = document.querySelector(
+      'input[name="' + name + '"]:checked'
+    );
+
+    return selected ? selected.value : "";
+
+  }
+
+
+  function simpanData() {
+
+    const tanggal = document.getElementById("tanggal").value;
+    const waktu = document.getElementById("waktu").value;
+    const lokasi = document.getElementById("lokasi").value;
+    const observer = document.getElementById("observer").value;
+    const area = document.getElementById("area").value;
+
+    const bahaya = getRadio("bahaya");
+
+
+    if (!tanggal || !waktu || !lokasi || !observer || !area) {
+
+      alert("Mohon lengkapi data kegiatan terlebih dahulu.");
+
+      return;
+    }
+
+
+    if (!bahaya) {
+
+      alert("Silakan pilih apakah ditemukan potensi bahaya.");
+
+      return;
+    }
+
+
+    let jenis = "";
+    let kategori = "";
+    let risiko = "";
+    let deskripsi = "";
+
+
+    if (bahaya === "Ya") {
+
+      jenis = document.getElementById("jenisTemuan").value;
+      kategori = document.getElementById("kategori").value;
+      risiko = document.getElementById("risiko").value;
+      deskripsi = document.getElementById("deskripsi").value;
+
+
+      if (!jenis || !kategori || !risiko || !deskripsi) {
+
+        alert("Mohon lengkapi detail temuan.");
+
+        return;
+      }
+
+    }
+
+
+    const data = {
+
+      tanggal: tanggal,
+      waktu: waktu,
+      lokasi: lokasi,
+      observer: observer,
+      area: area,
+      bahaya: bahaya,
+      jenis: jenis || "-",
+      kategori: kategori || "-",
+      risiko: risiko || "-",
+      deskripsi: deskripsi || "-"
+
+    };
+
+
+    dataSafetyWalk.push(data);
+
+    localStorage.setItem(
+      "dataSafetyWalk",
+      JSON.stringify(dataSafetyWalk)
+    );
+
+
+    document.getElementById("success").style.display = "block";
+
+
+    setTimeout(function() {
+
+      document.getElementById("success").style.display = "none";
+
+    }, 4000);
+
+
+    document.querySelectorAll("input, textarea").forEach(function(element) {
+
+      if (element.type !== "radio") {
+        element.value = "";
+      }
+
+    });
+
+  }
+
+
+  function tampilkanRekap() {
+
+    const tabel = document.getElementById("tabelData");
+
+    tabel.innerHTML = "";
+
+
+    let totalTemuan = 0;
+    let totalTinggi = 0;
+
+
+    dataSafetyWalk.forEach(function(data) {
+
+      if (data.bahaya === "Ya") {
+
+        totalTemuan++;
+
+        if (data.risiko === "Tinggi") {
+          totalTinggi++;
+        }
+
+      }
+
+
+      const row = document.createElement("tr");
+
+
+      let badgeClass = "";
+
+      if (data.risiko === "Rendah") {
+        badgeClass = "low";
+      } else if (data.risiko === "Sedang") {
+        badgeClass = "medium";
+      } else if (data.risiko === "Tinggi") {
+        badgeClass = "high";
+      }
+
+
+      row.innerHTML = `
+
+        <td>${data.tanggal}</td>
+
+        <td>${data.lokasi}</td>
+
+        <td>${data.observer}</td>
+
+        <td>${data.jenis}</td>
+
+        <td>${data.kategori}</td>
+
+        <td>
+          <span class="badge ${badgeClass}">
+            ${data.risiko}
+          </span>
+        </td>
+
+        <td>${data.deskripsi}</td>
+
+      `;
+
+
+      tabel.appendChild(row);
+
+    });
+
+
+    document.getElementById("totalWalk").textContent =
+      dataSafetyWalk.length;
+
+    document.getElementById("totalTemuan").textContent =
+      totalTemuan;
+
+    document.getElementById("totalTinggi").textContent =
+      totalTinggi;
+
+  }
+
+
+  tampilkanRekap();
+
+</script>
+
+</body>
+</html>

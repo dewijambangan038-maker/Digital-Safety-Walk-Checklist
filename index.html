@@ -810,8 +810,36 @@ footer{
 
 <script>
 function simpanTemuan() {
+    const tanggal = document.querySelector('input[type="date"]').value;
+    const lokasi = document.querySelector('input[type="text"]').value.trim();
+    const selects = document.querySelectorAll('select');
+    const kategori = selects[0].value;
+    const status = selects[1].value;
+    const textareas = document.querySelectorAll('textarea');
+    const deskripsi = textareas[0].value.trim();
+    const tindakan = textareas[1].value.trim();
+
+    if (!tanggal || !lokasi || !deskripsi) {
+        alert("Mohon lengkapi data temuan terlebih dahulu.");
+        return;
+    }
+
+    const temuan = {
+        tanggal: tanggal,
+        lokasi: lokasi,
+        kategori: kategori,
+        status: status,
+        deskripsi: deskripsi,
+        tindakan: tindakan
+    };
+
+    const data = JSON.parse(localStorage.getItem("safetyWalkTemuan") || "[]");
+    data.push(temuan);
+    localStorage.setItem("safetyWalkTemuan", JSON.stringify(data));
+
     alert("Temuan Safety Walk berhasil disimpan.");
 }
+</script>
 </script>
 </body>
 </html>
